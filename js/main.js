@@ -17,18 +17,18 @@ createSelectOptions();
 
 myIcons.forEach((icon)=> {
     icon.color = getRandomColor();
-    createIconCard(icon.family, icon.prefix, icon.name, icon.color);
+    createIconCard(icon);
 });
 
 mySelect.addEventListener("change",
-    (event)=>{
+    ()=>{
         myMain.innerHTML = "";
 
-        if (event.target.value === "all"){
-            myIcons.forEach((icon)=> createIconCard(icon.family, icon.prefix, icon.name, icon.color));
+        if (mySelect.value === "all"){
+            myIcons.forEach((icon)=> createIconCard(icon));
         } else {
-            const myFilteredIcons = myIcons.filter((icon)=> icon.type === event.target.value);
-            myFilteredIcons.forEach((icon)=> createIconCard(icon.family, icon.prefix, icon.name, icon.color));
+            const myFilteredIcons = myIcons.filter((icon)=> icon.type === mySelect.value);
+            myFilteredIcons.forEach((icon)=> createIconCard(icon));
         }
     }
 );
@@ -65,17 +65,17 @@ function getRandomColor() {
     return color;
 }
 
-function createIconCard(family, prefix, name, color){
+function createIconCard(icon){
     const card = document.createElement("div");
     card.classList.add("iconCard");
     myMain.append(card);
 
     const myI = document.createElement("i");
-    myI.className = `${family} ${prefix}${name}`;
-    myI.style.color = color;
+    myI.className = `${icon.family} ${icon.prefix}${icon.name}`;
+    myI.style.color = icon.color;
 
     const mySpan = document.createElement("span");
-    mySpan.innerText = name.toUpperCase();
+    mySpan.innerText = icon.name.toUpperCase();
 
     card.append(myI);
     card.append(mySpan);
